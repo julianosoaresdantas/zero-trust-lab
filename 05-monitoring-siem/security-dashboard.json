@@ -1,0 +1,47 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "name": "Zero Trust Security Overview",
+  "panels": [
+    {
+      "title": "Blocked IPs (SOAR iptables)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_receive_drop_total[5m]))",
+          "legendFormat": "Dropped Packets"
+        }
+      ]
+    },
+    {
+      "title": "Container Traffic & Microsegmentation Status",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "container_cpu_usage_seconds_total{name=~\"zt-.*\"}",
+          "legendFormat": "{{name}}"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["zero-trust", "security"],
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "",
+  "title": "Zero Trust Security Overview",
+  "version": 1
+}
