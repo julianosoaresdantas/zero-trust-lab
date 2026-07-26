@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web_dmz:
+    image: nginx:alpine
+    container_name: zt-web-dmz
+    networks:
+      - dmz_net
+
+  backend_app:
+    image: alpine:latest
+    container_name: zt-backend-app
+    command: sh -c "while true; do sleep 3600; done"
+    networks:
+      - internal_net
+
+networks:
+  dmz_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.1.0/24
+  internal_net:
+    driver: bridge
+    internal: true # Rede totalmente isolada da internet (Zero Trust strict)
+    ipam:
+      config:
+        - subnet: 172.28.2.0/24
